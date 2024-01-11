@@ -8,4 +8,7 @@ SQL запросы находятся в папке `/sql`
 
 Необходимо установить две библиотеки:
 1. pytest
-2. requests
+2. requests  
+
+Скриншот запуска тестов:  
+![alt text](https://github.com/RenataThaher/YandexPracticumFinalProject/blob/main/screenshot/run_test.png?raw=true)
