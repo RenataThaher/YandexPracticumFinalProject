@@ -1,3 +1,17 @@
-Select c."login", COUNT(o.id) from "Couriers" as c
-Left Join "Orders" as o on o."courierId" = c."id"
+-- left join целесообразен, если мы хотим видеть только те заказы, для которых у нас есть курьер
+-- если хотим видеть все заказы, даже для которых нет курьеров, то нужен full join
+-- тогда мы получим | null | x |, Где x это количество заказов в статусе доставки без курьера
+-- Продуктово такое не ок, и это будет баг, т.к. как заказ может доставляться без курьера
+
+Select c."login", COUNT(o."id") from "Couriers" as c
+Full Join "Orders" as o on o."courierId" = c."id"
+Where o."inDelivery" = true
 Group By c."login";
+
+-- При таком запросе у нас будет результат:
+--  login  | count
+-- --------+-------
+--  ninja  |     4
+--  ninja1 |     2
+--         |     1
+-- У заказа проставила inDelivery = true без указания курьера
